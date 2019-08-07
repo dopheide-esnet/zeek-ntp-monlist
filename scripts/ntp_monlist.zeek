@@ -26,9 +26,6 @@ export {
 	const NTP_CONTROL = 6;
 	const NTP_PRIVATE = 7;
 
-	# So we don't warn more than one time
-	global ntp_host: set[addr] &write_expire=1day;
-
 	} # end export
 
 
@@ -37,9 +34,8 @@ event ntp_message(c: connection, is_orig: bool, msg: NTP::Message)
 
 	if ((msg$mode == NTP_PRIVATE) || (msg$mode == NTP_CONTROL)) {
 
-		if ( (c$id$orig_h !in ntp_host)  && ! Site::is_neighbor_addr(c$id$resp_h) && ! Site::is_local_addr(c$id$resp_h)) {
+		if ( ! Site::is_neighbor_addr(c$id$resp_h) && ! Site::is_local_addr(c$id$resp_h)) {
 
-			add ntp_host[c$id$orig_h];
 			NOTICE([$note=NTP::NTP_Monlist_Queries,
 				$conn=c,
 				$suppress_for=6hrs,
