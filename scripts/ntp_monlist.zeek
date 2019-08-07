@@ -27,7 +27,7 @@ export {
 	const NTP_PRIVATE = 7;
 
 	# So we don't warn more than one time
-	global ntp_host: set[addr] &write_expire=1day &redef;
+	global ntp_host: set[addr] &write_expire=1day;
 
 	} # end export
 
