@@ -2,7 +2,6 @@ module NTP;
 
 export {
 	redef enum Notice::Type += {
-		NTP_Alarm,
 		NTP_Monlist_Queries,
 		};
 
@@ -28,7 +27,7 @@ export {
 	const NTP_PRIVATE = 7;
 
 	# So we don't warn more than one time
-	global ntp_host: table[addr] of count;
+	global ntp_host: set[addr] &write_expire=1day &redef;
 
 	} # end export
 
@@ -40,17 +39,12 @@ event ntp_message(c: connection, is_orig: bool, msg: NTP::Message)
 
 		if ( (c$id$orig_h !in ntp_host)  && ! Site::is_neighbor_addr(c$id$resp_h) && ! Site::is_local_addr(c$id$resp_h)) {
 
+			add ntp_host[c$id$orig_h];
 			NOTICE([$note=NTP::NTP_Monlist_Queries,
 				$conn=c,
 				$suppress_for=6hrs,
 				$msg=fmt("NTP monlist queries"),
 				$identifier=cat(c$id$orig_h)]);
-			}
-		else
-			if(c$id$orig_h in ntp_host){
-				++ntp_host[c$id$orig_h];
-			}else{
-				ntp_host[c$id$orig_h] = 1;
 			}
 		}
 	}
