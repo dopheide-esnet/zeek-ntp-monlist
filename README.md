@@ -1,8 +1,11 @@
 # zeek-ntp-monlist
 NTP monlist detection, updated for Zeek 3.0.0+
 
-Credit: I honestly have no idea where we got the original ntp-monlist.bro
-policy file, there was no author information in the policy.
+Credit: I believe the original ntp.bro script was written by the one and only
+Scott Campbell:
+https://github.com/set-element/misc-scripts/commits/master/ntp.bro
+
+However, I honestly have no idea who made the first monlist detection version.
 
 Zeek 3.0.0 started providing a script-land NTP module and logging which
 conflicted with the older ntp-monlist.bro policy that built those structures
