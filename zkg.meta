@@ -1,8 +1,8 @@
 [package]
-version = 1.0.0
+version = 1.0.1
 tags = ntp, NTP, monlist, ddos 
 script_dir = scripts
 description = This script just replaces the old ntp-monlist script to work with Zeek 3.0.0+ 
 test_command = cd tests && btest -d ntp_tests
 depends =
-	zeek >=2.6-744
+	zeek >= 3.0.0
