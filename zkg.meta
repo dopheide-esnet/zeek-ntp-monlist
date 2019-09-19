@@ -5,4 +5,4 @@ script_dir = scripts
 description = This script just replaces the old ntp-monlist script to work with Zeek 3.0.0+ 
 test_command = cd tests && btest -d ntp_tests
 depends =
-	zeek >=3.0.0
+	zeek >=3.0.0-rc1
